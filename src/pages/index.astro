@@ -1,16 +1,201 @@
 ---
 ---
 
-<html lang="en">
+<!doctype html>
+<html lang="es">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<meta name="theme-color" content="#f3f5f4" />
+		<meta
+			name="description"
+			content="MotoTrack, el espacio para tener tu moto siempre a punto."
+		/>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+		<link rel="manifest" href="/manifest.webmanifest" />
+		<link rel="icon" type="image/svg+xml" href="/icon.svg" />
+		<link rel="apple-touch-icon" href="/icons/icon-192.png" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>MotoTrack</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<main class="welcome">
+			<div class="brand" aria-label="MotoTrack">
+				<img src="/icon.svg" alt="" width="44" height="44" />
+				<span>MotoTrack</span>
+			</div>
+
+			<section class="welcome-card" aria-labelledby="welcome-title">
+				<div class="icon-wrap" aria-hidden="true">
+					<svg viewBox="0 0 48 48" fill="none">
+						<circle cx="13" cy="33" r="6" />
+						<circle cx="35" cy="33" r="6" />
+						<path d="m13 33 8-14h8l6 14H20l-5-9h15M23 19l-3-5h-5" />
+					</svg>
+				</div>
+				<p class="eyebrow">TU MOTO, SIEMPRE A PUNTO</p>
+				<h1 id="welcome-title">Hola, MotoTrack</h1>
+				<p class="description">
+					Tu espacio para cuidar de cada pieza, cada fluido y cada kilómetro.
+				</p>
+				<div class="setup-status">
+					<span class="status-dot" aria-hidden="true"></span>
+					<span>Base preparada para conectar con Supabase</span>
+				</div>
+			</section>
+
+			<p class="footer-note">Un buen viaje empieza con un buen cuidado.</p>
+		</main>
+
+		<script>
+			if ('serviceWorker' in navigator) {
+				window.addEventListener('load', () => {
+					navigator.serviceWorker.register('/sw.js').catch((error: unknown) => {
+						console.error('No se pudo registrar el service worker de MotoTrack.', error);
+					});
+				});
+			}
+		</script>
 	</body>
 </html>
+
+<style>
+	:root {
+		font-family:
+			"Segoe UI",
+			Roboto,
+			"Helvetica Neue",
+			sans-serif;
+		color: #202a25;
+		background: #f3f5f4;
+		font-synthesis: none;
+		text-rendering: optimizeLegibility;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+	body {
+		min-width: 320px;
+		min-height: 100vh;
+		margin: 0;
+	}
+
+	.welcome {
+		display: flex;
+		min-height: 100vh;
+		min-height: 100svh;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 32px 20px;
+		padding-bottom: max(32px, env(safe-area-inset-bottom));
+	}
+
+	.brand {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		margin-bottom: 32px;
+		font-size: 17px;
+		font-weight: 650;
+		letter-spacing: -0.02em;
+	}
+
+	.brand img {
+		border-radius: 14px;
+	}
+
+	.welcome-card {
+		width: min(100%, 440px);
+		padding: 36px 28px 28px;
+		border: 1px solid #e8ece9;
+		border-radius: 30px;
+		background: #fff;
+		box-shadow: 0 12px 36px rgb(34 55 43 / 5%);
+		text-align: center;
+	}
+
+	.icon-wrap {
+		display: grid;
+		width: 64px;
+		height: 64px;
+		margin: 0 auto 24px;
+		place-items: center;
+		border-radius: 22px;
+		background: #eaf5ee;
+		color: #28714a;
+	}
+
+	.icon-wrap svg {
+		width: 38px;
+		stroke: currentColor;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		stroke-width: 2;
+	}
+
+	.eyebrow {
+		margin: 0 0 10px;
+		color: #538168;
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.13em;
+	}
+
+	h1 {
+		margin: 0;
+		font-size: clamp(28px, 7vw, 36px);
+		font-weight: 650;
+		letter-spacing: -0.055em;
+	}
+
+	.description {
+		max-width: 320px;
+		margin: 14px auto 26px;
+		color: #69756e;
+		font-size: 15px;
+		line-height: 1.65;
+	}
+
+	.setup-status {
+		display: flex;
+		min-height: 44px;
+		align-items: center;
+		justify-content: center;
+		gap: 9px;
+		padding: 10px 12px;
+		border-radius: 15px;
+		background: #f5f7f5;
+		color: #52635a;
+		font-size: 12px;
+	}
+
+	.status-dot {
+		width: 7px;
+		height: 7px;
+		flex: 0 0 auto;
+		border-radius: 50%;
+		background: #76a98a;
+	}
+
+	.footer-note {
+		margin: 24px 0 0;
+		color: #8a948e;
+		font-size: 12px;
+	}
+
+	@media (max-width: 380px) {
+		.welcome-card {
+			padding-inline: 20px;
+		}
+
+		.setup-status {
+			font-size: 11px;
+		}
+	}
+</style>

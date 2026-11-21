@@ -1,43 +1,31 @@
-# Astro Starter Kit: Minimal
+# MotoTrack
+
+Base de una PWA para llevar el control del mantenimiento de una moto. La primera pantalla es solo una bienvenida; la interfaz de gestión y su lógica se añadirán más adelante.
+
+## Empezar
+
+Requiere Node.js `>=22.23.4`.
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Para generar la versión de producción:
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```sh
+npm run build
+npm run preview
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Supabase
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+1. Copia `.env.example` a `.env`.
+2. Sustituye `PUBLIC_SUPABASE_URL` y `PUBLIC_SUPABASE_ANON_KEY` por la URL del proyecto y su clave pública (publishable/anon) de Supabase.
+3. Usa `getSupabaseClient()` desde `src/lib/supabase.ts` cuando se implemente la lógica de datos.
 
-Any static assets, like images, can be placed in the `public/` directory.
+Las variables `PUBLIC_` se incluyen en el cliente del navegador. No pongas una clave `service_role` aquí; configura las políticas RLS de Supabase antes de permitir acceso a datos.
 
-## 🧞 Commands
+## PWA
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+La aplicación tiene un manifiesto con modo `standalone`, iconos de instalación y un service worker que conserva la pantalla inicial para abrirla sin conexión. Sirve la aplicación por HTTPS en producción (localhost también es válido durante el desarrollo) para instalarla en un dispositivo.
